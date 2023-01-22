@@ -1,11 +1,13 @@
 import java.util.List;
+import java.util.Scanner;
+
 /**
  *	Population - <description goes here>
  *
  *	Requires FileUtils and Prompt classes.
  *
- *	@author	
- *	@since	
+ *	@author	Vibhav Pata
+ *	@since	1-17-23
  */
 public class Population {
 	
@@ -15,7 +17,61 @@ public class Population {
 	// US data file
 	private final String DATA_FILE = "usPopData2017.txt";
 	
+	//constructor initializes field
+	public Population()
+	{
+		cities = new ArrayList<>();
+	}
 	
+	//main method, exits static
+	public static void main(String[] args)
+	{
+		Population pp = new Population();
+		pp.run();
+	}
+	
+	//bulk of population code is here
+	public void run()
+	{
+		loadCities();	
+	}
+	
+	//reads in city data from txt and imports data into our cities list
+	public void loadCities()
+	{
+		Scanner input = FileUtils.openToRead(DATA_FILE);
+		input = input.useDelimiter("[\t\n]");
+		while(input.hasNext())
+		{
+			String stateName = input.next();
+			String cityName = input.next();
+			String cityType = input.next();
+			int cityPopulation = input.next();
+			cities.add(City(cityName, stateName, cityType, cityPopulation));
+		}
+	}
+	
+	/** Sort population based on ascedning order using selection sort
+	 *	@param City arr		
+	 *  @return void
+	 */
+    public void sortPopAscending(City arr)
+    {
+		
+		for (int outer = arr.size(); outer > 1; outer--)
+		{
+			int max = 0;
+			for (int inner = 1; inner < outer; inner++)
+			{
+				if(/*arr.get(max) < arr.get(inner])*/ arr.compareTo(cities.get(inner)) < 0)
+				{
+					max = inner;
+				}
+			}
+			swap(arr, max, outer-1);
+		}
+	}
+
 	/**	Prints the introduction to Population */
 	public void printIntroduction() {
 		System.out.println("   ___                  _       _   _");
@@ -37,5 +93,7 @@ public class Population {
 		System.out.println("6. All cities matching a name sorted by population");
 		System.out.println("9. Quit");
 	}
+	
+	
 	
 }
