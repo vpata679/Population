@@ -2,21 +2,24 @@
  *	City data - the city name, state name, location designation,
  *				and population est. 2017
  *
- *	@author	
- *	@since	
+ *	@author	Vibhav Pata
+ *	@since	Jan 16
  */
-public class City implements Comparable<City> {
-	
+public class City implements Comparable<City>
+ {
 	// fields
-	private String city, state, cityType; //name of city, state, & city type
+	private String cityName, stateName, cityType;
 	private int population;
 	
-	// constructor, initializes fields with input
-	public City(String cityName, String stateName, String typeOfCity, int popAmount)
+	// constructor
+	public City(String state, String city, String type, int pop)
 	{
-		city = cityName; state = stateName; cityType = typeOfCity;
-		population = popAmount;
-	}
+		cityName = city;
+		stateName = state;
+		cityType = type;
+		population = pop;
+	} 
+	
 	/**	Compare two cities populations
 	 *	@param other		the other City to compare
 	 *	@return				the following value:
@@ -24,53 +27,58 @@ public class City implements Comparable<City> {
 	 *		else if states are different, then returns (this.state - other.state)
 	 *		else returns (this.name - other.name)
 	 */
-	public int compareTo(City other)
+	public int compareTo(City other) 
 	{
-		if (this.population != other.population)
-		{
-			return this.population - other.population;
-		}
- 		else if (!this.state.equals(other.state))
-			return this.state.compareTo(other.state)
-		return this.name.compareTo(other.name)
+		if (population != other.population)
+			return population - other.population;
+			
+		else if (stateName != other.stateName)
+			return stateName.compareTo(other.stateName);
+			
+		else 
+			return cityName.compareTo(other.cityName);
+	}
+
+	/**
+	 * Compares two cities names
+	 * @param other - the city comparing to
+	 * @return compare value
+	 */
+	public int compareToName(City other) 
+	{
+		if (!cityName.equals(other.cityName)) 
+			return cityName.compareTo(other.cityName);
+			
+		else if (population!=other.population)
+			return other.population-population;
+			
+		else 
+			return stateName.compareTo(other.stateName);
 	}
 	
 	/**	Equal city name and state name
 	 *	@param other		the other City to compare
 	 *	@return				true if city name and state name equal; false otherwise
 	 */
-	 public boolean equals(City other)
-	 {
-		 if (this.city.equals(other.city) && this.state.equals(other.state))
+	 public boolean equals(City other) {
+		if (cityName.equals(other.cityName) && stateName.equals(other.stateName))
 			return true;
 		return false;
-	 }
+	}
 	
 	/**	Accessor methods */
-	public String getCity()
-	{
-		return city;
-	}
+	public String getName() {return cityName;}
 	
-	public String getState()
-	{
-		return state;
-	}
+	public String getState() {return stateName;}
 	
-	public String getCityType()
-	{
-		return cityType;
-	}
+	public String getType() {return cityType;}
 	
-	public int getPopulation()
-	{
-		return population;
-	}
+	public int getPop() {return population;}
 	
 	/**	toString */
 	@Override
 	public String toString() {
-		return String.format("%-22s %-22s %-12s %,12d", state, name, designation,
+		return String.format("%-22s %-22s %-12s %,12d", stateName, cityName, cityType,
 						population);
 	}
 }
